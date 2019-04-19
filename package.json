@@ -4,17 +4,26 @@
   "description": "A Koa middleware module that can rewrite import specifiers for JavaScript modules based on the reference/presence of an importmap in the HTML document originating the request.",
   "main": "index.js",
   "scripts": {
-    "test": "tape test/* | tap-diff"
+    "test": "tape test/*-test.js | tap-diff"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/generator": "^7.4.0",
+    "@babel/parser": "^7.4.3",
+    "@babel/traverse": "^7.4.3",
+    "get-stream": "^5.1.0",
+    "is-stream": "^1.1.0",
+    "lru-cache": "^5.1.1",
     "parse5": "^5.1.0",
     "parse5-traverse": "^1.0.3"
   },
   "devDependencies": {
+    "koa": "^2.7.0",
+    "koa-static": "^5.0.0",
     "standard": "^12.0.1",
+    "supertest": "^4.0.2",
     "tap-diff": "^0.1.1",
     "tape": "^4.10.1"
   }
