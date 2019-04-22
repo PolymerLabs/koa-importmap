@@ -1,7 +1,6 @@
 const { parse } = require('@babel/parser')
-const { generate } = require('@babel/generator')
-const { traverse } = require('@babel/traverse')
-
+const generate = require('@babel/generator').default
+const traverse = require('@babel/traverse').default
 class JavaScriptModule {
   static fromSource (source, baseURI) {
     const ast = parse(source, {
@@ -15,17 +14,41 @@ class JavaScriptModule {
     this.ast = ast
     this.baseURI = baseURI
   }
-  rewriteSpecifiers(importmap) {
-    this.specifiers.forEach((specifier) => {
-      // Handle each type of specifier in AST
-      // Use the importmap to rewrite AST
+  rewriteSpecifiers(callback) {
+    const importExportDeclaration = {
+      enter(path) {
+        if (path.node &&
+          path.node.source &&
+          path.node.source.type === 'StringLiteral') {
+          const specifier = path.node.source.value
+          const rewrittenSpecifier = callback(specifier)
+          if (rewrittenSpecifier) {
+            path.node.source.value = rewrittenSpecifier
+          }
+        }
+      }
+    }
+    traverse(this.ast, {
+      ImportDeclaration: importExportDeclaration,
+      ExportAllDeclaration: importExportDeclaration,
+      ExportNamedDeclaration: importExportDeclaration,
+      CallExpression: {
+        enter(path) {
+          if (path.node &&
+            path.node.callee &&
+            path.node.callee.type === 'Import' &&
+            path.node.arguments.length === 1 &&
+            path.node.arguments[0].type === 'StringLiteral') {
+            const specifier = path.node.arguments[0].value
+            const rewrittenSpecifier = callback(specifier)
+            path.node.arguments[0].value = rewrittenSpecifier
+          }
+        }
+      }
     })
   }
-  get specifiers() {
-    return []
-  }
-  get toString() {
-    return generate(this.ast)
+  toString() {
+    return generate(this.ast).code
   }
 }
 

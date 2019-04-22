@@ -16,7 +16,8 @@ module.exports = {
   removeFakeRootElements,
   removeNode,
   removeNodeSaveChildren,
-  setAttr
+  setAttr,
+  setTextContent
 }
 
 function filter(
@@ -159,4 +160,26 @@ function removeNodeSaveChildren (node) {
     insertBefore(node.parentNode, node, child)
   }
   removeNode(node)
+}
+
+function setTextContent(node, value) {
+  if (isCommentNode(node)) {
+    node.data = value
+  } else if (isTextNode(node)) {
+    node.value = value
+  } else {
+    const tn = newTextNode(value)
+    tn.parentNode = node
+    node.childNodes = [tn]
+  }
+}
+
+function newTextNode(value) {
+  return {
+    nodeName: '#text',
+    value: value,
+    parentNode: undefined,
+    attrs: [],
+    __location: undefined,
+  }
 }

@@ -1,7 +1,8 @@
 const { parse, serialize } = require('parse5')
 const traverse = require('parse5-traverse')
 const url = require('url')
-const { getAttr, removeFakeRootElements, setAttr } = require('./html-document-utils')
+const JavaScriptModule = require('./javascript-module')
+const { getAttr, getTextContent, removeFakeRootElements, removeNode, setAttr } = require('./html-document-utils')
 
 class HTMLDocument {
   static fromSource (html, location) {
@@ -30,9 +31,18 @@ class HTMLDocument {
   get html () {
     return serialize(this.ast)
   }
-  get importmaps () {
+  get importMaps () {
     return this.query((node) => node.nodeName === 'script' &&
        getAttr(node, 'type') === 'importmap')
+  }
+  get inlineModules() {
+    return this.query((node) => node.nodeName === 'script' &&
+      getAttr(node, 'type') === 'module' &&
+      !getAttr(node, 'src')).map((script) => {
+        const javascript = getTextContent(script)
+        const javaScriptModule = JavaScriptModule.fromSource(javascript, this.baseURI)
+        return { script, javaScriptModule }
+      })
   }
   get moduleScripts() {
     return this.query((node) => node.nodeName === 'script' &&
@@ -44,6 +54,9 @@ class HTMLDocument {
       pre: (node) => (filter(node) && nodes.push(node)) || true
     })
     return nodes
+  }
+  removeImportMapScripts() {
+    this.importMaps.forEach(removeNode)
   }
   rewriteModuleScriptSrcs(callback) {
     this.moduleScripts.forEach((script) => {

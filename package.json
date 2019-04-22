@@ -16,6 +16,7 @@
     "get-stream": "^5.1.0",
     "is-stream": "^1.1.0",
     "lru-cache": "^5.1.1",
+    "node-fetch": "^2.3.0",
     "parse5": "^5.1.0",
     "parse5-traverse": "^1.0.3"
   },

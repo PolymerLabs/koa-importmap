@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "module-x": "/test/fixtures/module-x.js"
+  }
+}
