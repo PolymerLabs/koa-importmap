@@ -2,16 +2,26 @@
 <html>
   <head>
     <script type="importmap">
-      {
-        "imports": {
-          "module-x": "/test/fixtures/module-x.js"
+        {
+          "imports": {
+            "module-x": "/test/fixtures/module-x.js",
+            "module-y": "/test/fixtures/module-y.js"
+          },
+          "scopes": {
+            "/test/fixtures/module-x/": {
+              "module-y": "/test/fixtures/module-x/module-y/module-y.js"
+            }
+          }
         }
-      }
     </script>
     <script type="module">
       import * as x from 'module-x'
-      x()
+      import * as y from 'module-y'
+      x.x()
+      x.y()
+      y.y()
     </script>
+    <script type="module" src="module-x.js"></script>
     <script type="module" src="module-y.js"></script>
   </head>
 </html>

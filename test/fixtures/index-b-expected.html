@@ -1,1 +1,16 @@
-<!DOCTYPE html><html><head> <script type="module">import * as x from "http://127.0.0.1:8081/test/fixtures/module-x.js?koa-importmap=18a2ce3f55c98f715e2c2f41570f1cb67471b968517b61cd2cc8bfe0db868fd8"; x();</script> <script type="module" src="module-y.js?koa-importmap=18a2ce3f55c98f715e2c2f41570f1cb67471b968517b61cd2cc8bfe0db868fd8"></script> </head> </html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module">
+      import * as x from "http://127.0.0.1:8081/test/fixtures/module-x.js?koa-importmap=5e98d91ec59ee61c5c8883d6fb1e109935ef3caedc2e230a10a2b46c6dc28b84";
+      import * as y from "http://127.0.0.1:8081/test/fixtures/module-y.js?koa-importmap=5e98d91ec59ee61c5c8883d6fb1e109935ef3caedc2e230a10a2b46c6dc28b84";
+      x.x();
+      x.y();
+      y.y();
+    </script>
+    <script type="module"
+      src="module-x.js?koa-importmap=5e98d91ec59ee61c5c8883d6fb1e109935ef3caedc2e230a10a2b46c6dc28b84"></script>
+    <script type="module"
+      src="module-y.js?koa-importmap=5e98d91ec59ee61c5c8883d6fb1e109935ef3caedc2e230a10a2b46c6dc28b84"></script>
+  </head>
+</html>

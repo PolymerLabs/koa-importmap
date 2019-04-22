@@ -5,8 +5,12 @@
     </script>
     <script type="module">
       import * as x from 'module-x'
-      x()
+      import * as y from 'module-y'
+      x.x()
+      x.y()
+      y.y()
     </script>
+    <script type="module" src="module-x.js"></script>
     <script type="module" src="module-y.js"></script>
   </head>
 </html>

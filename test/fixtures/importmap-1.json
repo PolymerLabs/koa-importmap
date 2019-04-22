@@ -1,5 +1,11 @@
 {
   "imports": {
-    "module-x": "/test/fixtures/module-x.js"
+    "module-x": "/test/fixtures/module-x.js",
+    "module-y": "/test/fixtures/module-y.js"
+  },
+  "scopes": {
+    "/test/fixtures/module-x/": {
+      "module-y": "/test/fixtures/module-x/module-y/module-y.js"
+    }
   }
 }

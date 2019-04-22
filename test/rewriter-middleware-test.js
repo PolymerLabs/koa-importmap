@@ -4,6 +4,7 @@ const Koa = require('koa')
 const static = require('koa-static')
 const test = require('tape')
 const fs = require('fs')
+const { simplifyHTML } = require('./test-utils')
 
 function makeServer() {
   const app = new Koa()
@@ -19,8 +20,9 @@ test('Middleware rewrites specifiers from inline importmap', async (t) => {
   const server = makeServer()
   const response = await request(server).get('/index-a.html')
   server.close()
-  t.deepEquals(response.text.replace(/\s+/mg, ' '),
-      fs.readFileSync(__dirname + '/fixtures/index-a-expected.html', 'utf8').trim())
+  t.deepEquals(simplifyHTML(response.text),
+    simplifyHTML(
+      fs.readFileSync(__dirname + '/fixtures/index-a-expected.html', 'utf8')))
 })
 
 test('Middleware rewrites specifiers from external importmap', async (t) => {
@@ -29,6 +31,7 @@ test('Middleware rewrites specifiers from external importmap', async (t) => {
   const server = makeServer()
   const response = await request(server).get('/index-b.html')
   server.close()
-  t.deepEquals(response.text.replace(/\s+/mg, ' '),
-      fs.readFileSync(__dirname + '/fixtures/index-b-expected.html', 'utf8').trim())
+  t.deepEquals(simplifyHTML(response.text),
+    simplifyHTML(
+      fs.readFileSync(__dirname + '/fixtures/index-b-expected.html', 'utf8')))
 })

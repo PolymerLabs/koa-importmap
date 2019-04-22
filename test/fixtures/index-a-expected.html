@@ -1,1 +1,16 @@
-<!DOCTYPE html><html><head> <script type="module">import * as x from "http://127.0.0.1:8081/test/fixtures/module-x.js?koa-importmap=7de9b4441cec46a6751d63d30b5a54ce3c3bbff6a0bbc501429a07f157500785"; x();</script> <script type="module" src="module-y.js?koa-importmap=7de9b4441cec46a6751d63d30b5a54ce3c3bbff6a0bbc501429a07f157500785"></script> </head> </html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module">
+      import * as x from "http://127.0.0.1:8081/test/fixtures/module-x.js?koa-importmap=6dc84e7a455e18fa861221d64112b0c10321f138f632d16e393e953eecd06120";
+      import * as y from "http://127.0.0.1:8081/test/fixtures/module-y.js?koa-importmap=6dc84e7a455e18fa861221d64112b0c10321f138f632d16e393e953eecd06120";
+      x.x();
+      x.y();
+      y.y();
+    </script>
+    <script type="module"
+      src="module-x.js?koa-importmap=6dc84e7a455e18fa861221d64112b0c10321f138f632d16e393e953eecd06120"></script>
+    <script type="module"
+      src="module-y.js?koa-importmap=6dc84e7a455e18fa861221d64112b0c10321f138f632d16e393e953eecd06120"></script>
+  </head>
+</html>
