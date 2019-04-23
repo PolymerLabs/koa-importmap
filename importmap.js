@@ -6,7 +6,7 @@ const crypto = require('crypto')
 class ImportMap {
   static fromSource(json, location) {
     const parsed = parseFromString(json, location)
-    const digest = crypto.createHash('sha256').update(json, 'utf8').digest('hex')
+    const digest = crypto.createHash('sha256').update(json.trim(), 'utf8').digest('hex')
     return new ImportMap(parsed, location, digest)
   }
   constructor(parsedMap, location, digest) {

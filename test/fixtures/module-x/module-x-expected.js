@@ -1,4 +1,4 @@
-export { y } from "http://127.0.0.1:8081/module-x/module-y/module-y.js?koa-importmap=e82874a8dbe77ec6e4746a35f9d3065e2f2628913c30e1e785b73375baa98465";
+export { y } from "http://127.0.0.1:8081/module-x/module-y/module-y.js?koa-importmap=8e68068df2931837555db0ec056de40884f6288d735fd30553e11fcf1947d3f9";
 export function x() {
   return 'ecks';
 }

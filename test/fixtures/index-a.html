@@ -2,17 +2,17 @@
 <html>
   <head>
     <script type="importmap">
-        {
-          "imports": {
-            "module-x": "/module-x.js",
-            "module-y": "/module-y.js"
-          },
-          "scopes": {
-            "/module-x/": {
-              "module-y": "/module-x/module-y/module-y.js"
-            }
-          }
-        }
+{
+  "imports": {
+    "module-x": "/module-x.js",
+    "module-y": "/module-y.js"
+  },
+  "scopes": {
+    "/module-x/": {
+      "module-y": "/module-x/module-y/module-y.js"
+    }
+  }
+}
     </script>
     <script type="module">
       import * as x from 'module-x'
