@@ -36,13 +36,15 @@ test('parse an importmap successfully', (t) => {
 
   test('can resolve specifier matching import', (t) => {
     t.plan(1)
-    t.equals(importmap.resolve('module-x', 'https://example.com/index.html'),
+    t.equals(importmap.resolve('module-x',
+        'https://example.com/index.html'),
         'https://example.com/node_modules/module-x/index.js')
   })
 
   test('can resolve specifier matching scoped import', (t) => {
     t.plan(1)
-    t.equals(importmap.resolve('module-y', 'https://example.com/node_modules/module-x/index.js'),
+    t.equals(importmap.resolve('module-y',
+        'https://example.com/node_modules/module-x/index.js'),
         'https://example.com/node_modules/module-x/node_modules/module-y/module-y.js')
   })
 
@@ -50,6 +52,20 @@ test('parse an importmap successfully', (t) => {
     t.plan(1)
     t.equals(importmap.resolve('module-z', 'https://example.com/index.html'),
         undefined)
+  })
+
+  test('can resolve "import:" URL', (t) => {
+    t.plan(1)
+    t.equals(importmap.resolveImportSchemeURL('import:module-y',
+        'https://example.com/'),
+        'https://example.com/node_modules/module-y/module-y.js')
+  })
+
+  test('can resolve "import:" URL, honoring scopes', (t) => {
+    t.plan(1)
+    t.equals(importmap.resolveImportSchemeURL('import:module-y',
+        'https://example.com/node_modules/module-x/index.js'),
+        'https://example.com/node_modules/module-x/node_modules/module-y/module-y.js')
   })
 })
 

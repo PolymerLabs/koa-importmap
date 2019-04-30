@@ -28,12 +28,18 @@ class HTMLDocument {
     }
     return ''
   }
+  get externalImportMaps() {
+    return this.importMaps.filter((node) => !!getAttr(node, 'src'))
+  }
   get html () {
     return serialize(this.ast)
   }
   get importMaps () {
     return this.query((node) => node.nodeName === 'script' &&
-       getAttr(node, 'type') === 'importmap')
+        getAttr(node, 'type') === 'importmap')
+  }
+  get inlineImportMaps() {
+    return this.importMaps.filter((node) => !getAttr(node, 'src'))
   }
   get inlineModules() {
     return this.query((node) => node.nodeName === 'script' &&

@@ -23,6 +23,13 @@ class ImportMap {
       return undefined
     }
   }
+  resolveImportSchemeURL(importURL, baseURL) {
+    const specifier = importURL.replace(/^import:/, '')
+    if (!specifier || specifier === importURL) {
+      return undefined
+    }
+    return this.resolve(specifier, baseURL)
+  }
 }
 
 module.exports = ImportMap

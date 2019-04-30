@@ -18,7 +18,8 @@
     "lru-cache": "^5.1.1",
     "node-fetch": "^2.3.0",
     "parse5": "^5.1.0",
-    "parse5-traverse": "^1.0.3"
+    "parse5-traverse": "^1.0.3",
+    "shady-css-parser": "^0.1.0"
   },
   "devDependencies": {
     "koa": "^2.7.0",
