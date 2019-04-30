@@ -16,9 +16,6 @@ class HTMLDocument {
     this.ast = ast
     this.location = location
   }
-  get baseURI () {
-    return url.resolve(this.location, this.baseHref)
-  }
   get baseHref () {
     for (const base of this.tags('base')) {
       const href = getAttr(base, 'href')
@@ -27,6 +24,9 @@ class HTMLDocument {
       }
     }
     return ''
+  }
+  get baseURI () {
+    return url.resolve(this.location, this.baseHref)
   }
   get externalImportMaps() {
     return this.importMaps.filter((node) => !!getAttr(node, 'src'))
